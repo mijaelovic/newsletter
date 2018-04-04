@@ -15,23 +15,23 @@ public class Subscriber {
     @JoinTable(name="subscriber_category",
         joinColumns=@JoinColumn(name="subscriber_email"),
         inverseJoinColumns=@JoinColumn(name="category_code"))
-    private List<String> categoryCodes;
+    private List<Category> categories;
 
     public Subscriber()
     {
     }
 
-    public Subscriber(String email, List<String> categoryCodes)
+    public Subscriber(String email, List<Category> categories)
     {
         this.email = email;
-        this.categoryCodes = categoryCodes;
+        this.categories = categories;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public List<String> getCategoryCodes() {
-        return categoryCodes;
+    public List<Category> getCategoryCodes() {
+        return categories;
     }
 }

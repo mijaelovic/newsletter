@@ -18,22 +18,22 @@ public class Book {
     @JoinTable(name="book_categories",
                joinColumns = @JoinColumn(name="book_id"),
                inverseJoinColumns = @JoinColumn(name="category_code"))
-    private List<String> categoryCodes;
+    private List<Category> categories;
 
     public Book()
     {
     }
 
-    public Book(String title, List<String> categoryCodes) {
+    public Book(String title, List<Category> categories) {
         this.title = title;
-        this.categoryCodes = categoryCodes;
+        this.categories = categories;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public List<String> getCategoryCodes() {
-        return categoryCodes;
+    public List<Category> getCategories() {
+        return categories;
     }
 }

@@ -12,19 +12,19 @@ public class Category {
     @Column(name="title")
     private String title;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="superCategoryCode", referencedColumnName="code")
-    private String superCategoryCode;
+    private Category superCategory;
 
     public Category()
     {
     }
 
-    public Category(String code, String title, String superCategoryCode)
+    public Category(String code, String title, Category superCategoryCode)
     {
         this.code = code;
         this.title = title;
-        this.superCategoryCode = superCategoryCode;
+        this.superCategory = superCategoryCode;
     }
 
     public String getCode() {
@@ -35,7 +35,7 @@ public class Category {
         return title;
     }
 
-    public String getSuperCategoryCode() {
-        return superCategoryCode;
+    public Category getSuperCategory() {
+        return superCategory;
     }
 }
