@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>Newsletter REST API</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+REST API<br/>
+
+1. Category submissions, a category has a unique code, a title and optionally a parent category (e.g. science -> physics)<br/>
+<pre>
+POST /categories
+{
+    “code”: “string”,
+    “title”: “string”,
+    “superCategoryCode”: “string” or null
+}
+</pre>
+
+2. Book submissions, a book has a title and a list of category codes of categories to which it belongs to
+<pre>
+POST /books
+{
+    “title”: “string”,
+    “categoryCodes”: [
+        “code1”,
+        “code2”,
+        ...
+    ]
+}
+</pre>
+
+3. Subscriber submissions, a subscriber has an email and a list of category codes of categories for which he/she is interested in
+<pre>
+POST /subscribers
+{
+    “email”: “string”,
+    “categoryCodes”: [
+        “code1”,
+        “code2”,
+        ...
+    ]
+}
+</pre>
+
+4. Return a list of “newsletters”, each newsletter relates to a subscriber, a newsletter has a recipient address (the subscriber's email) and a list of notifications, each notification contains the name of a book and a list of categoryPaths for it, a categoryPath is a list that shows the relation of the books' category and the category for which a subscriber is interested.
+A subscriber should get notifications for books that belong to the same category or to a child category of a category in which the subscriber is interested.
+To make it a bit easier assume that a book can not belong to a parent and child category at the same time, for example if science is the parent category of physics then a book can not belong to both categories, only to one of them, same holds for a subscription.
+Also assume that the release date of a book is irrelevant and that all books are eligible for a newsletter.
+
+Example:
+Given the following category hierarchy:
+science └──engineering
+└── software
+├── functional_programming
+└── object_oriented_programming
+If a subscriber is interested in engineering and a book e.g. “Programming in Scala” belongs to the category functional_programming, then one of the categoryPaths for that book in that subscriber's email notification is:
+["engineering", "software", "functional_programming"]
+if the same book also belongs to the category object_oriented_programming then that same book has also a categoryPath:
+["engineering", "software", "object_oriented_programming"] and the /newsletters response body should be:
+[
+
+<pre>
+GET /newsletters
+{
+    “recipient”: “subscriber@email.com”,
+    “notifications”: [
+        {
+            "book": "Programming in Scala",
+            "categoryPaths": [
+                ["engineering", "software", "functional_programming"],
+                ["engineering", "software", "object_oriented_programming"]
+            ]
+        }
+    ]
+}
+</pre>
+</body>

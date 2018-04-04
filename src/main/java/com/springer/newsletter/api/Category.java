@@ -1,6 +1,8 @@
 package com.springer.newsletter.api;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private String code;
     private String title;
     private String superCategoryCode;
@@ -14,6 +16,11 @@ public class Category {
         this.code = code;
         this.title = title;
         this.superCategoryCode = superCategoryCode;
+    }
+
+    public Category(String code, String title)
+    {
+        this(code, title, null);
     }
 
     public String getCode() {

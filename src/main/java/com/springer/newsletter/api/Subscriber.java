@@ -1,8 +1,9 @@
 package com.springer.newsletter.api;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Subscriber {
+public class Subscriber implements Serializable {
     private String email;
     private List<String> categoryCodes;
 

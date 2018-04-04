@@ -1,8 +1,9 @@
 package com.springer.newsletter.api;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Newsletter {
+public class Newsletter implements Serializable {
     private String recipient;
     private List<Book> categoryPaths;
 
