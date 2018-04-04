@@ -12,11 +12,16 @@ repositories {
 }
 
 dependencies {
-    providedCompile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    // persistence
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.16.Final'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
 
+    // server
+    providedCompile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.25.1'
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.25.1'
 
+    // client
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.25.1'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.25.1'
 
