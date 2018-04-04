@@ -16,7 +16,7 @@ public class RestClient {
 
     public RestClient() {
         Client client = ClientBuilder.newClient();
-        target = client.target("http://localhost:8080").path("newsletter").path("rest");//.path("service");
+        target = client.target("http://localhost:8080").path("newsletter").path("rest");
     }
 
     public void demo() {

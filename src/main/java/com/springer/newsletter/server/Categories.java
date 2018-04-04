@@ -47,8 +47,6 @@ public class Categories {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Category> getCategories() {
         EntityManager em = getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
         try {
             List<Category> tmp = new ArrayList<>();
             Query query = em.createQuery("from Category");
@@ -57,12 +55,7 @@ public class Categories {
                 String superCategoryCode = (cat.getSuperCategory() == null)? null : cat.getSuperCategory().getCode();
                 tmp.add(new Category(cat.getCode(), cat.getTitle(), superCategoryCode));
             }
-            tx.commit();
             return tmp;
-        }
-        catch (Exception ex) {
-            tx.rollback();
-            throw ex;
         }
         finally {
             em.close();
