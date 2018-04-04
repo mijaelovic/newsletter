@@ -21,11 +21,11 @@ public class RestClient {
 
     public void demo() {
         Category science = new Category("A", "science");
-        //Category engineering = new Category("B", "engineering", "A");
-        //Category software = new Category("C", "software", "B");
-        //target.path("categories").request().post(Entity.json(science));
-        //target.path("categories").request().post(Entity.json(engineering));
-        //target.path("categories").request().post(Entity.json(software));
+        Category engineering = new Category("B", "engineering", "A");
+        Category software = new Category("C", "software", "B");
+        target.path("categories").request().post(Entity.json(science));
+        target.path("categories").request().post(Entity.json(engineering));
+        target.path("categories").request().post(Entity.json(software));
 
         // Testing
         List<Category> categories = target.path("categories").request(MediaType.APPLICATION_JSON).get(

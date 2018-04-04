@@ -20,9 +20,9 @@ public class Categories {
     @Consumes(MediaType.APPLICATION_JSON)
     public void addCategory(Category category) {
         EntityManager em = getEntityManager();
-        EntityTransaction tr = em.getTransaction();
-        tr.begin();
-        {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try {
             com.springer.newsletter.model.Category parent = null;
             if (category.getSuperCategoryCode() != null) {
                 parent = em.find(
@@ -32,26 +32,40 @@ public class Categories {
             em.persist(new com.springer.newsletter.model.Category(
                     category.getCode(), category.getTitle(), parent));
             em.flush();
+            tx.commit();
         }
-        tr.commit();
+        catch (Exception ex) {
+            tx.rollback();
+            throw ex;
+        }
+        finally {
+            em.close();
+        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Category> getCategories() {
         EntityManager em = getEntityManager();
-        EntityTransaction tr = em.getTransaction();
-        tr.begin();
-        List<Category> tmp = new ArrayList<>();
-        {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try {
+            List<Category> tmp = new ArrayList<>();
             Query query = em.createQuery("from Category");
             for (Object item: query.getResultList()) {
                 com.springer.newsletter.model.Category cat = (com.springer.newsletter.model.Category)item;
                 String superCategoryCode = (cat.getSuperCategory() == null)? null : cat.getSuperCategory().getCode();
                 tmp.add(new Category(cat.getCode(), cat.getTitle(), superCategoryCode));
             }
+            tx.commit();
+            return tmp;
         }
-        tr.commit();
-        return tmp;
+        catch (Exception ex) {
+            tx.rollback();
+            throw ex;
+        }
+        finally {
+            em.close();
+        }
     }
 }
