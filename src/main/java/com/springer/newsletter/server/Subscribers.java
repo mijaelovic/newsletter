@@ -27,10 +27,13 @@ public class Subscribers {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            em.persist(new com.springer.newsletter.model.Subscriber(
-                    subscriber.getEmail(), categories
-            ));
-            em.flush();
+            if (em.find(com.springer.newsletter.model.Subscriber.class, subscriber.getEmail()) == null)
+            {
+                em.persist(new com.springer.newsletter.model.Subscriber(
+                        subscriber.getEmail(), categories
+                ));
+                em.flush();
+            }
             tx.commit();
         }
         catch (Exception ex) {

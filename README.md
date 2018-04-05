@@ -6,7 +6,7 @@ To start the server run the command:
 
 On the first execution it will download dependencies.
 
-To start the demo client run the command:
+While the server is running to start the demo client run the command:
 > ./gradlew runDemoClient
 
 It will create some categories and run the example.

@@ -24,9 +24,12 @@ public class Categories {
                         com.springer.newsletter.model.Category.class,
                         category.getSuperCategoryCode());
             }
-            em.persist(new com.springer.newsletter.model.Category(
-                    category.getCode(), category.getTitle(), parent));
-            em.flush();
+            if (em.find(com.springer.newsletter.model.Category.class, category.getCode()) == null)
+            {
+                em.persist(new com.springer.newsletter.model.Category(
+                        category.getCode(), category.getTitle(), parent));
+                em.flush();
+            }
             tx.commit();
         }
         catch (Exception ex) {
