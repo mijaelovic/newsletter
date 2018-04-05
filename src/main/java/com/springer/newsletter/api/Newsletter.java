@@ -5,23 +5,23 @@ import java.util.List;
 
 public class Newsletter implements Serializable {
     private String recipient;
-    private List<Book> categoryPaths;
+    private List<BookFeed> notifications;
 
     public Newsletter()
     {
     }
 
-    public Newsletter(String recipient, List<Book> categoryPaths)
+    public Newsletter(String recipient, List<BookFeed> notifications)
     {
         this.recipient = recipient;
-        this.categoryPaths = categoryPaths;
+        this.notifications = notifications;
     }
 
     public String getRecipient() {
         return recipient;
     }
 
-    public List<Book> getCategoryPaths() {
-        return categoryPaths;
+    public List<BookFeed> getNotifications() {
+        return notifications;
     }
 }

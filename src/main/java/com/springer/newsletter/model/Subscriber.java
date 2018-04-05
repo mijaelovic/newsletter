@@ -31,7 +31,7 @@ public class Subscriber {
         return email;
     }
 
-    public List<Category> getCategoryCodes() {
+    public List<Category> getCategories() {
         return categories;
     }
 }

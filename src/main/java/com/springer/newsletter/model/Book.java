@@ -29,6 +29,10 @@ public class Book {
         this.categories = categories;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }

@@ -11,15 +11,10 @@ import java.util.List;
 @Path("/categories")
 public class Categories {
 
-    protected EntityManager getEntityManager() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("h2");
-        return emf.createEntityManager();
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void addCategory(Category category) {
-        EntityManager em = getEntityManager();
+        EntityManager em = DataService.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
@@ -46,16 +41,17 @@ public class Categories {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Category> getCategories() {
-        EntityManager em = getEntityManager();
+        EntityManager em = DataService.getEntityManager();
         try {
-            List<Category> tmp = new ArrayList<>();
+            List<Category> ret = new ArrayList<>();
             Query query = em.createQuery("from Category");
-            for (Object item: query.getResultList()) {
+            for (Object item: query.getResultList())
+            {
                 com.springer.newsletter.model.Category cat = (com.springer.newsletter.model.Category)item;
                 String superCategoryCode = (cat.getSuperCategory() == null)? null : cat.getSuperCategory().getCode();
-                tmp.add(new Category(cat.getCode(), cat.getTitle(), superCategoryCode));
+                ret.add(new Category(cat.getCode(), cat.getTitle(), superCategoryCode));
             }
-            return tmp;
+            return ret;
         }
         finally {
             em.close();

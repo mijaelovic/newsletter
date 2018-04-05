@@ -1,6 +1,8 @@
 package com.springer.newsletter.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="category")
@@ -15,6 +17,12 @@ public class Category {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="superCategoryCode", referencedColumnName="code")
     private Category superCategory;
+
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="categories")
+    private List<Book> books;
+
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="superCategory")
+    private List<Category> childrenCategory;
 
     public Category()
     {
@@ -37,5 +45,21 @@ public class Category {
 
     public Category getSuperCategory() {
         return superCategory;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public List<Category> getChildrenCategory() {
+        return childrenCategory;
+    }
+
+    public List<String> getCategoryPath() {
+        List<String> ret = new ArrayList<>();
+        ret.add(getTitle());
+        if (getSuperCategory() != null)
+            ret.addAll(getSuperCategory().getCategoryPath());
+        return ret;
     }
 }
