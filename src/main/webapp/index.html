@@ -49,10 +49,13 @@ Also assume that the release date of a book is irrelevant and that all books are
 
 Example:
 Given the following category hierarchy:
-science └──engineering
-└── software
-├── functional_programming
-└── object_oriented_programming
+<pre>
+science
+└──engineering
+    └── software
+        ├── functional_programming
+        └── object_oriented_programming
+</pre>
 If a subscriber is interested in engineering and a book e.g. “Programming in Scala” belongs to the category functional_programming, then one of the categoryPaths for that book in that subscriber's email notification is:
 ["engineering", "software", "functional_programming"]
 if the same book also belongs to the category object_oriented_programming then that same book has also a categoryPath:
