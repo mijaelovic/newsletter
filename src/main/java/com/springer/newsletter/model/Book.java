@@ -1,5 +1,7 @@
 package com.springer.newsletter.model;
 
+//import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,10 +16,11 @@ public class Book {
     @Column(name="title")
     private String title;
 
-    @OneToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="book_categories",
                joinColumns = @JoinColumn(name="book_id"),
                inverseJoinColumns = @JoinColumn(name="category_code"))
+    //@Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Category> categories;
 
     public Book()

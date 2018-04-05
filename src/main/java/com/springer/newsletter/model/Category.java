@@ -18,7 +18,7 @@ public class Category {
     @JoinColumn(name="superCategoryCode", referencedColumnName="code")
     private Category superCategory;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="categories")
+    @ManyToMany(fetch=FetchType.LAZY, mappedBy="categories")
     private List<Book> books;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy="superCategory")
@@ -57,9 +57,9 @@ public class Category {
 
     public List<String> getCategoryPath() {
         List<String> ret = new ArrayList<>();
-        ret.add(getTitle());
         if (getSuperCategory() != null)
             ret.addAll(getSuperCategory().getCategoryPath());
+        ret.add(getTitle());
         return ret;
     }
 }
