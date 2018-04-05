@@ -29,3 +29,5 @@ Programming in Scala
 [[science, engineering, software, functional_programming], [science, engineering, software, object_oriented_programming]]
 
 ```
+
+Notice persistence.xml drops and creates tables on every execution (for demo purposing).
